@@ -1,13 +1,12 @@
 package com.boot.ugina.bootexmpl.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +20,6 @@ public class Customer {
     private String name;
     private String email;
     private Integer age;
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    private List<OnOrder> orderList;
 }
