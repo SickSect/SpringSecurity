@@ -2,7 +2,7 @@ spring:
   main:
     web-application-type: servlet #means what king of app is it
   datasource:
-    username: sickeer #db user name
+    username: mainuser #db user name
     password: 21062007 #db password
     url: jdbc:postgresql://localhost:5432/course
     driver-class-name: org.postgresql.Driver
