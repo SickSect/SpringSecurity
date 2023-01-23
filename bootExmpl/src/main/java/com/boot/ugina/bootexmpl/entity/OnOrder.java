@@ -1,6 +1,7 @@
 package com.boot.ugina.bootexmpl.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class OnOrder {
     private Long id;
     private String address;
     private boolean status;
-    private String currentStatus;
+    private OrderStatus currentStatus;
     @OneToMany(mappedBy = "ordered", fetch = FetchType.EAGER)
     private Collection<Item> itemCollection;
     @ManyToOne(fetch = FetchType.EAGER)
