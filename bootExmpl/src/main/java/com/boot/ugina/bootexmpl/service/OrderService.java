@@ -6,6 +6,7 @@ import com.boot.ugina.bootexmpl.repo.CustomerRepo;
 import com.boot.ugina.bootexmpl.repo.ItemRepo;
 import com.boot.ugina.bootexmpl.repo.OrderRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -36,12 +37,12 @@ public class OrderService {
 
     public ResponseEntity createOrder(String address, Long ownerId, Collection<Long> itemList) {
         if (address.isEmpty() || ownerId <= 0)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong arguments inside request");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong arguments inside request 1");
         OnOrder order = new OnOrder();
         order.setAddress(address);
         order.setStatus(true);
-        if (!(c_repo.existsById(ownerId)))
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong arguments inside request");
+        if (!c_repo.existsById(ownerId))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong arguments inside request 2");
         for (Long id:
              itemList) {
             order.getItemCollection().add(i_repo.getReferenceById(id));
@@ -50,5 +51,12 @@ public class OrderService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No items in order");
         o_repo.save(order);
         return ResponseEntity.status(HttpStatus.CREATED).body("Order created");
+    }
+
+    public ResponseEntity deleteOrder(Long id) {
+        if (id <= 0 || !o_repo.existsById(id))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is no order with such id");
+        o_repo.deleteById(id);
+        return  ResponseEntity.status(HttpStatus.OK).body("Order deleted");
     }
 }

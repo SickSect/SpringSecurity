@@ -18,13 +18,11 @@ import java.util.List;
 public class CustomerController {
     private final CustomerService serv;
     @GetMapping("/list")
-    @ResponseStatus(code = HttpStatus.OK, reason = "OK")
     public List<Customer> customerList(){
         return serv.getList();
     }
 
     @GetMapping("/by/id")
-    @ResponseStatus(code = HttpStatus.OK, reason = "OK")
     public Customer getById(@RequestParam("id") Long id){
         Customer customer = new Customer();
         customer = serv.getById(id);
@@ -39,11 +37,15 @@ public class CustomerController {
             String email,
             Integer age
     ){}
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity create(@RequestBody CustomerRequest req){
         if (!serv.createCustomer(req.name(), req.email(), req.age()))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong typed argument (name/age/email)");
         return ResponseEntity.status(HttpStatus.CREATED).body("Create new customer");
     }
 
+    /*@PostMapping("/makeOrder")
+    public ResponseEntity makeOrder(@RequestBody Long id){
+
+    }*/
 }
