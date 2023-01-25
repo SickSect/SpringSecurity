@@ -1,7 +1,7 @@
 package com.boot.ugina.bootexmpl.controller;
 
 import com.boot.ugina.bootexmpl.entity.OnOrder;
-import com.boot.ugina.bootexmpl.entity.OrderStatus;
+import com.boot.ugina.bootexmpl.entity.enums.OrderStatus;
 import com.boot.ugina.bootexmpl.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

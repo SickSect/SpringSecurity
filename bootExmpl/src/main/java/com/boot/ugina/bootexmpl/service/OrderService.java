@@ -1,13 +1,11 @@
 package com.boot.ugina.bootexmpl.service;
 
-import com.boot.ugina.bootexmpl.entity.Item;
 import com.boot.ugina.bootexmpl.entity.OnOrder;
-import com.boot.ugina.bootexmpl.entity.OrderStatus;
+import com.boot.ugina.bootexmpl.entity.enums.OrderStatus;
 import com.boot.ugina.bootexmpl.repo.CustomerRepo;
 import com.boot.ugina.bootexmpl.repo.ItemRepo;
 import com.boot.ugina.bootexmpl.repo.OrderRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,6 @@ public class OrderService {
     private final OrderRepo o_repo;
     private final CustomerRepo c_repo;
     private  final ItemRepo i_repo;
-
 
     public List<OnOrder> getList() {
         return o_repo.findAll();

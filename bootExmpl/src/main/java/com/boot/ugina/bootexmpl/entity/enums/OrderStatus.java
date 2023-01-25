@@ -1,4 +1,4 @@
-package com.boot.ugina.bootexmpl.entity;
+package com.boot.ugina.bootexmpl.entity.enums;
 
 public enum OrderStatus {
     CREATED,

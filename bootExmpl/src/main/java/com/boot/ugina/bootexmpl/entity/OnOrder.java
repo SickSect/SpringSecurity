@@ -1,13 +1,12 @@
 package com.boot.ugina.bootexmpl.entity;
 
+import com.boot.ugina.bootexmpl.entity.enums.OrderStatus;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Data

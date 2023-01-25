@@ -12,14 +12,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CustomerService {
     private final CustomerRepo c_repo;
-
+    //private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
     public List<Customer> getList() {
         return c_repo.findAll();
     }
 
     public Customer getById(Long id){
-        if (id <= 0)
+        if (id <= 0) {
             return null;
+            //logger.error("Bad argument at customer's method getById()");
+        }
         Customer customer = new Customer();
         customer = c_repo.findById(id);
         if (customer != null)
