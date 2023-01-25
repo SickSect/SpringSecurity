@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -17,6 +18,7 @@ public class Item {
     private Long id;
     private String name;
     private Double price;
+    private String itemUuid;
     @ManyToOne(cascade = CascadeType.ALL)
     private OnOrder ordered;
 }

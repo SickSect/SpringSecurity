@@ -20,6 +20,7 @@ public class Customer {
     private String name;
     private String email;
     private Integer age;
+    private String customerUuid;
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<OnOrder> orderList;
 }

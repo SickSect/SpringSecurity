@@ -20,6 +20,7 @@ public class OnOrder {
     private String address;
     private boolean status;
     private OrderStatus currentStatus;
+    private String orderUuid;
     @OneToMany(mappedBy = "ordered", fetch = FetchType.EAGER)
     private Collection<Item> itemCollection;
     @ManyToOne(fetch = FetchType.EAGER)

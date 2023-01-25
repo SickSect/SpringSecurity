@@ -5,6 +5,9 @@ import com.boot.ugina.bootexmpl.repo.ItemRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class ItemService {
@@ -15,6 +18,7 @@ public class ItemService {
         Item item = new Item();
         item.setName(name);
         item.setPrice(price);
+        item.setItemUuid(UUID.randomUUID().toString());
         repo.save(item);
         return true;
     }
@@ -24,5 +28,9 @@ public class ItemService {
             return false;
         repo.deleteById(id);
         return true;
+    }
+
+    public List<Item> getList() {
+        return repo.findAll();
     }
 }

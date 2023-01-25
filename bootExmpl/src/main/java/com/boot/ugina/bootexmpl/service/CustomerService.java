@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +34,7 @@ public class CustomerService {
             customer.setAge(age);
             customer.setEmail(email);
             customer.setName(name);
+            customer.setCustomerUuid(UUID.randomUUID().toString());
             c_repo.save(customer);
             return true;
         }

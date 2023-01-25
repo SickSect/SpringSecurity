@@ -1,6 +1,7 @@
 package com.boot.ugina.bootexmpl.controller;
 
 import com.boot.ugina.bootexmpl.entity.OnOrder;
+import com.boot.ugina.bootexmpl.entity.OrderStatus;
 import com.boot.ugina.bootexmpl.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,14 @@ public class OrderController {
         Long ownerId = req.ownerId();
         Collection<Long> itemList = req.itemList();
         return serv.createOrder(address, ownerId, itemList);
+    }
+
+    record ComplectOrder(
+            Long id
+    ){}
+    @PatchMapping("/complect")
+    public ResponseEntity complectOrder(@RequestBody ComplectOrder req){
+        return serv.changeStatus(req.id(), OrderStatus.ACCEPTED);
     }
 
     record DeleteRequest(Long id){}

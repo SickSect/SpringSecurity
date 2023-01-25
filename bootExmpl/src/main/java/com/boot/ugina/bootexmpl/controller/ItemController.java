@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/item")
 @RequiredArgsConstructor
@@ -28,6 +30,11 @@ public class ItemController {
         }
         else
             return ResponseEntity.status(HttpStatus.CREATED).body("Item was added");
+    }
+
+    @GetMapping("/list")
+    public List<Item> getList(){
+        return serv.getList();
     }
 
     @DeleteMapping("/delete/item")
