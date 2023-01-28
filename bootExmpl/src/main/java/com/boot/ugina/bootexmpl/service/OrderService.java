@@ -1,5 +1,6 @@
 package com.boot.ugina.bootexmpl.service;
 
+import com.boot.ugina.bootexmpl.entity.Item;
 import com.boot.ugina.bootexmpl.entity.OnOrder;
 import com.boot.ugina.bootexmpl.entity.enums.OrderStatus;
 import com.boot.ugina.bootexmpl.repo.CustomerRepo;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.lang.model.element.Element;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -28,12 +30,13 @@ public class OrderService {
     private Logger logger = LoggerFactory.getLogger(OrderService.class);
     public List<OnOrder> getList() {
         logger.info("Returning list of orders");
+
         return o_repo.findAll();
     }
 
     public Optional<OnOrder> getById(Long id) {
         if (id <= 0 || !(o_repo.existsById(id))) {
-            logger.error("Baf arguments to find order by id");
+            logger.error("Bad arguments to find order by id");
             return null;
         }
         logger.info("Returning order by id");
@@ -41,6 +44,7 @@ public class OrderService {
     }
 
     public ResponseEntity createOrder(String address, Long ownerId, Collection<Long> itemList) {
+        System.out.println("LOOK HERE" + itemList.toString());
         if (address.isEmpty() || ownerId <= 0) {
             logger.error("Bad arguments to create new order");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong arguments inside request");
@@ -52,10 +56,8 @@ public class OrderService {
             logger.error("Bad arguments to create new order");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong arguments inside request");
         }
-        for (Long id:
-             itemList) {
-            order.getItemCollection().add(i_repo.getReferenceById(id));
-        }
+        order.setOwner(c_repo.findById(ownerId));
+        itemList.forEach(e -> order.getItemCollection().add(i_repo.findById(e).get()));
         if (order.getItemCollection().isEmpty()) {
             logger.error("Bad arguments to create new order (empty order)");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No items in order");
@@ -68,10 +70,8 @@ public class OrderService {
     }
 
     public ResponseEntity deleteOrder(Long id) {
-        if (id <= 0 || !o_repo.existsById(id)) {
-            logger.error("Bad arguments to delete order by id");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is no order with such id");
-        }
+        if (!o_repo.existsById(id))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No order by id " + id);
         o_repo.deleteById(id);
         logger.info("Order was deleted");
         return  ResponseEntity.status(HttpStatus.OK).body("Order deleted");

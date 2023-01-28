@@ -51,9 +51,8 @@ public class OrderController {
         return serv.changeStatus(req.id(), OrderStatus.ACCEPTED);
     }
 
-    record DeleteRequest(Long id){}
     @DeleteMapping("/delete")
-    public ResponseEntity deleteOrder(@RequestBody DeleteRequest req){
+    public ResponseEntity deleteOrder(@RequestBody ComplectOrder req){
         return serv.deleteOrder(req.id());
     }
 }

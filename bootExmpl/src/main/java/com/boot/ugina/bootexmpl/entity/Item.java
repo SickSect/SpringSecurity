@@ -1,5 +1,6 @@
 package com.boot.ugina.bootexmpl.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +21,6 @@ public class Item {
     private Double price;
     private String itemUuid;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     private OnOrder ordered;
 }

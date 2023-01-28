@@ -42,6 +42,7 @@ public class CustomerService {
             customer.setEmail(email);
             customer.setName(name);
             customer.setCustomerUuid(UUID.randomUUID().toString());
+            customer.setOrderList(null);
             c_repo.save(customer);
             logger.info("Customer was created");
             return true;

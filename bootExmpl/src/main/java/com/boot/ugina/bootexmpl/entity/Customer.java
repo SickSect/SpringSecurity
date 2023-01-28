@@ -1,11 +1,14 @@
 package com.boot.ugina.bootexmpl.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -21,6 +24,8 @@ public class Customer {
     private String email;
     private Integer age;
     private String customerUuid;
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @JsonBackReference
     private List<OnOrder> orderList;
 }
