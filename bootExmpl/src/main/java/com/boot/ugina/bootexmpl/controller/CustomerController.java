@@ -34,15 +34,22 @@ public class CustomerController {
 
     record CustomerRequest(
             String name,
+            String surname,
+            String username,
+            String password,
             String email,
             Integer age
     ){}
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CustomerRequest req){
-        if (!serv.createCustomer(req.name(), req.email(), req.age()))
+        if (!serv.createCustomer(req.name(),req.surname(),req.username(), req.password(),req.email(), req.age()))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong typed argument (name/age/email)");
         return ResponseEntity.status(HttpStatus.CREATED).body("Create new customer");
     }
+    /*@PutMapping("/change/username")
+    public ResponseEntity changeUsrname(@RequestParam String username){
+        return serv.changeUsername(username);
+    }*/
 
     /*@PostMapping("/makeOrder")
     public ResponseEntity makeOrder(@RequestBody Long id){

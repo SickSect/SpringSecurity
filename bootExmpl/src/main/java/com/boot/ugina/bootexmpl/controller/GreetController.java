@@ -4,6 +4,7 @@ import com.boot.ugina.bootexmpl.entity.Customer;
 import com.boot.ugina.bootexmpl.repo.CustomerRepo;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
@@ -28,6 +29,7 @@ public class GreetController {
     }
     record GreetResponse (String msg){}*/
     @GetMapping("/start")
+    @PreAuthorize("hasRole('ADMIN')")
     public GreetResponse greet(){
         return new GreetResponse("This is msg"); // it will   return json format msg
     }

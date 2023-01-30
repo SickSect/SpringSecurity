@@ -1,5 +1,6 @@
 package com.boot.ugina.bootexmpl.entity;
 
+import com.boot.ugina.bootexmpl.entity.enums.Roles;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -21,9 +22,13 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private String surname;
+    private String username;
+    private String password;
     private String email;
     private Integer age;
     private String customerUuid;
+    private Roles role;
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     @JsonManagedReference
     @JsonBackReference

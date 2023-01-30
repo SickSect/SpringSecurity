@@ -1,5 +1,6 @@
 package com.boot.ugina.bootexmpl.entity;
 
+import com.boot.ugina.bootexmpl.entity.enums.Category;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class Item {
     private String name;
     private Double price;
     private String itemUuid;
+    private Category type;
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonBackReference
     private OnOrder ordered;

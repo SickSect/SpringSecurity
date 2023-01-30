@@ -12,4 +12,6 @@ public interface CustomerRepo extends JpaRepository<Customer, Integer> {
     Customer findById(Long ownerId);
 
     boolean existsById(Long ownerId);
+
+    boolean findByName(String username);
 }
