@@ -51,7 +51,7 @@ public class CustomerService {
             customer.setPassword(password);
             customer.setCustomerUuid(UUID.randomUUID().toString());
             customer.setOrderList(null);
-            customer.setRole(USER);
+            //customer.setRole(USER);
             c_repo.save(customer);
             logger.info("Customer was created");
             return true;
@@ -62,7 +62,7 @@ public class CustomerService {
 
     public ResponseEntity changeUsername(String username) {
         // надо дописать проверку на схожие логины
-        if (username.isEmpty() || c_repo.findByName(username))
+        if (username.isEmpty() || c_repo.existByName(username))
         {
             logger.error("Error changing username");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong username (try another one)");
