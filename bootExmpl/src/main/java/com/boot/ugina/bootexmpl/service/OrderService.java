@@ -56,7 +56,7 @@ public class OrderService {
             logger.error("Bad arguments to create new order");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong arguments inside request");
         }
-        order.setOwner(c_repo.findById(ownerId));
+        order.setOwner(c_repo.findById(ownerId).get());
         itemList.forEach(e -> order.getItemCollection().add(i_repo.findById(e).get()));
         if (order.getItemCollection().isEmpty()) {
             logger.error("Bad arguments to create new order (empty order)");

@@ -30,7 +30,7 @@ public class CustomerService {
             return null;
         }
         Customer customer = new Customer();
-        customer = c_repo.findById(id);
+        customer = c_repo.findById(id).get();
         if (customer != null) {
             logger.info("Returning customer by id");
             return customer;
@@ -62,7 +62,7 @@ public class CustomerService {
 
     public ResponseEntity changeUsername(String username) {
         // надо дописать проверку на схожие логины
-        if (username.isEmpty() || c_repo.existByName(username))
+        if (username.isEmpty() || c_repo.findByUsername(username) != null)
         {
             logger.error("Error changing username");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wrong username (try another one)");

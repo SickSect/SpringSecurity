@@ -53,7 +53,7 @@ public class GreetController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteById(@RequestParam("id") Integer id){
+    public void deleteById(@RequestParam("id") Long id){
         Optional<Customer> customer = repo.findById(id);
         if(!customer.isEmpty())
             repo.deleteById(id);
