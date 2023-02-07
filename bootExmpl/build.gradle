@@ -38,6 +38,8 @@ dependencies {
     testImplementation group: 'com.opentable.components', name: 'otj-pg-embedded', version: '1.0.1'
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
     implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+// https://mvnrepository.com/artifact/org.springframework/spring-web
+    implementation group: 'org.springframework', name: 'spring-web', version: '6.0.4'
 
 }
 

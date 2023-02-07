@@ -6,7 +6,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepo extends JpaRepository<Role, Long> {
+public interface  RoleRepo extends JpaRepository<Role, Long> {
 
     Role findByName(String user);
 }

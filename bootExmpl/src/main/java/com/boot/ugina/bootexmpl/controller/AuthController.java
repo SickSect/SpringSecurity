@@ -40,9 +40,11 @@ public class AuthController {
 
     @PostMapping("/reg")
     public ResponseEntity<String> register(@RequestBody RegisterReq req) {
-        if (c_repo.findByUsername(req.username()) != null) { // check if exist
+        // ADD HERE EMAIL and etc features
+        log.info("User: " + req.username() + " Try to register");
+        if (c_repo.findByUsername(req.username()) == null) { // check if exist
             log.error("This name is already in use");
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("THis name is already in use");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("This name is already in use");
         }
         Customer customer = new Customer();
         customer.setPassword(passwordEncoder.encode(req.password())); // need do encode pass
