@@ -29,45 +29,27 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     private CustomerUserDetailService customerUserDetailService;
-
+    private JwtAuthEntryPoint entryPoint;
     @Autowired
-    public SecurityConfig(CustomerUserDetailService customerUserDetailService) {
+    public SecurityConfig(CustomerUserDetailService customerUserDetailService, JwtAuthEntryPoint entryPoint) {
         this.customerUserDetailService = customerUserDetailService;
+        this.entryPoint = entryPoint;
     }
-
-    /*//@EnableMethodSecurity belong to this
-        @Bean
-        InMemoryUserDetailsManager userDetailsManager(){
-            return new InMemoryUserDetailsManager(User.withUsername("mainuser").
-                    password("{noop}password").
-                    roles("ADMIN").
-                    build());
-        }*/
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.
 
                 csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(entryPoint)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // it's off bc of JWT token
+                .and()
                 .authorizeRequests().requestMatchers("/api/auth/*").permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 
         return http.build();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password("admin_pass")
-                .roles("ADMIN")
-                .build();
-        UserDetails user = User.builder()
-                .username("user")
-                .password("user_pass")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(admin, user);
     }
 
     @Bean

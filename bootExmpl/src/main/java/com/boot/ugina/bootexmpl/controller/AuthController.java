@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +38,8 @@ public class AuthController {
 
     record RegisterReq(String username, String password) {
     }
+    record LoginReq(String username, String password) {
+    }
 
     @PostMapping("/reg")
     public ResponseEntity<String> register(@RequestBody RegisterReq req) {
@@ -54,6 +57,13 @@ public class AuthController {
         customer.setRoles(Collections.singletonList(role));
         c_repo.save(customer);
         return ResponseEntity.status(HttpStatus.OK).body("Customer registered success");
+    }
+
+    @PostMapping("/log")
+    public ResponseEntity login(@RequestBody LoginReq log){
+        Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(log.username(), log.password()));
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        return ResponseEntity.status(HttpStatus.OK).body("User " + log.username() + " log in!");
     }
 
     record LoginInfo(String username, String password) {

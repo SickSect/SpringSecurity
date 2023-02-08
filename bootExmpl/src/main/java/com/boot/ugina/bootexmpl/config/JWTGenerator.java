@@ -5,15 +5,17 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
-
+@Component
 public class JWTGenerator {
 
     public String generateToken(Authentication auth) {
         String username = auth.getName();
-        Date currentDate = new Date();
-        Date expiredDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXP);
+        Date currentDate = new Date(); // JWT have expired date! you need t add it
+        Date expiredDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXP); // and it
+
         String token = Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
@@ -46,7 +48,7 @@ public class JWTGenerator {
             return true;
         }
         catch (Exception ex){
-            throw new AuthenticationCredentialsNotFoundException("JWT token is incorrect");
+            throw new AuthenticationCredentialsNotFoundException("JWT token is incorrect or expired");
         }
     }
 }
