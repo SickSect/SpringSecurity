@@ -27,16 +27,16 @@ public class JWTGenerator {
     }
 
     public String getUsernameFromJwt(String token) {
-        Claims claim = Jwts.parser()
+        /*Claims claim = Jwts.parser()
                 .setSigningKey(SecurityConstants.JWT_SECRET)
                 .parseClaimsJwt(token)
-                .getBody();
+                .getBody();*/
         Claims cl = (Claims) Jwts.parserBuilder().setSigningKey(SecurityConstants.JWT_SECRET)
                 .build()
                 .parse(token)
                 .getBody();
 
-        System.out.println(claim.getSubject() + " this is through deprecated method");
+        //System.out.println(claim.getSubject() + " this is through deprecated method");
         System.out.println(cl.getSubject() + " this is through builder");
         // its deprecated find another way to do it
         return cl.getSubject();
@@ -44,8 +44,7 @@ public class JWTGenerator {
 
     public boolean validateToken(String token){
         try {
-            Jwts.parserBuilder().setSigningKey(SecurityConstants.JWT_SECRET).build()
-                    .parse(token);
+            Jwts.parserBuilder().setSigningKey(SecurityConstants.JWT_SECRET);
             return true;
         }
         catch (Exception ex){

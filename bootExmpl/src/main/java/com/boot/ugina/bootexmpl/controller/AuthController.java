@@ -1,5 +1,6 @@
 package com.boot.ugina.bootexmpl.controller;
 
+import com.boot.ugina.bootexmpl.config.JWTGenerator;
 import com.boot.ugina.bootexmpl.entity.Customer;
 import com.boot.ugina.bootexmpl.entity.Role;
 import com.boot.ugina.bootexmpl.repo.CustomerRepo;
@@ -28,12 +29,14 @@ public class AuthController {
     private RoleRepo r_repo;
     private PasswordEncoder passwordEncoder;
     private Logger log = LoggerFactory.getLogger(AuthController.class);
+    private JWTGenerator jwtGenerator;
 
-    public AuthController(AuthenticationManager authenticationManager, CustomerRepo c_repo, RoleRepo r_repo, PasswordEncoder passwordEncoder) {
+    public AuthController(AuthenticationManager authenticationManager, CustomerRepo c_repo, RoleRepo r_repo, PasswordEncoder passwordEncoder, JWTGenerator jwtGenerator) {
         this.authenticationManager = authenticationManager;
         this.c_repo = c_repo;
         this.r_repo = r_repo;
         this.passwordEncoder = passwordEncoder;
+        this.jwtGenerator = jwtGenerator;
     }
 
     record RegisterReq(String username, String password) {
@@ -60,19 +63,14 @@ public class AuthController {
     }
 
     @PostMapping("/log")
-    public ResponseEntity login(@RequestBody LoginReq log){
-        Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(log.username(), log.password()));
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginReq log){
+        Authentication auth = authenticationManager.
+                authenticate(new UsernamePasswordAuthenticationToken(log.username(), log.password()));
         SecurityContextHolder.getContext().setAuthentication(auth);
-        return ResponseEntity.status(HttpStatus.OK).body("User " + log.username() + " log in!");
+        String token = jwtGenerator.generateToken(auth);
+        return new ResponseEntity<>(new AuthResponse(token, "Bearer"), HttpStatus.OK);
     }
 
-    record LoginInfo(String username, String password) {
-    }
-
-    /*@PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginInfo log) {
-        Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(log.username(), log.password()));
-
-    }*/
+    record AuthResponse(String accessToken, String tokenType){}
 }
 
