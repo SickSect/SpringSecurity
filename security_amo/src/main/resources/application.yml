@@ -1,0 +1,15 @@
+spring:
+  datasourse:
+    url: jdbc:postgresql://localhost:5432/course_1
+    driver-class-name: org.postgresql.Driver
+    username: sickeer
+    password: 21062007
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+      database: postgresql
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
