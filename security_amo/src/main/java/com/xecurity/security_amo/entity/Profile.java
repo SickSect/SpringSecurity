@@ -2,6 +2,7 @@ package com.xecurity.security_amo.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,10 +15,11 @@ import java.util.List;
 @Entity
 @Data // don't forget to write them by your self
 @NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class Profile implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String surname;

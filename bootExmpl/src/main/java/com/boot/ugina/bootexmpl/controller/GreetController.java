@@ -29,7 +29,7 @@ public class GreetController {
     }
     record GreetResponse (String msg){}*/
     @GetMapping("/start")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public GreetResponse greet(){
         return new GreetResponse("This is msg"); // it will   return json format msg
     }
