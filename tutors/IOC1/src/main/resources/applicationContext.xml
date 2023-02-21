@@ -53,5 +53,12 @@ call it by ID -->
         <property name="name" value="${author.name}"/>
         <property name="pencil" ref="pencil"></property>
     </bean>
-
+    <!--BeanScope-->
+    <bean id = "key"
+          class="com.example.ioc1.BeanScope.Key">
+        <property name="name" value="Old"></property>
+    </bean>
+    <bean id = "door"
+          class="com.example.ioc1.BeanScope.Door">
+    <!--scope="singleton"--></bean>
 </beans>
