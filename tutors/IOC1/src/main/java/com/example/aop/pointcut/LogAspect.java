@@ -13,4 +13,14 @@ public class LogAspect {
     public void beforeGetBookAdvice(){
         System.out.println("beforeGetBookAdvice getBook");
     }
+
+    @Before("execution( public void return*())")
+    public void beforeReturnBookAdvice(){
+        System.out.println("beforeReturnBookAdvice getBook");
+    }
+
+    @Before("execution( public void find*(String))") // args works like this
+    public void beforeFindBookAdvice(){
+        System.out.println("beforeFindBookAdvice getBook");
+    }
 }

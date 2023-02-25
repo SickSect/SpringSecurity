@@ -9,6 +9,9 @@ public class main {
         libre.getBook();
         SchoolLibrary libre_a = context.getBean("school", SchoolLibrary.class);
         libre_a.getBook();
+        libre.findBook("Zoology");
+        libre.returnBook();
+        libre_a.returnBook();
         context.close();
     }
 }
