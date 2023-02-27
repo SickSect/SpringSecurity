@@ -5,13 +5,13 @@ import org.springframework.stereotype.Component;
 @Component("school")
 public class SchoolLibrary extends AbstractLibrary{
     @Override
-    public void getBook() {
-        System.out.println("Take book from School library.");
+    public void getBook(String name) {
+        System.out.println("Take book " + name + " from School library.");
     }
 
     @Override
-    public void returnBook() {
-        System.out.println("Return book from School library.");
+    public void returnBook(String name) {
+        System.out.println("Return book " + name + " from School library.");
     }
 
     @Override
