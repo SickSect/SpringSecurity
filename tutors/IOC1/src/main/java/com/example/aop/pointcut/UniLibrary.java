@@ -19,4 +19,14 @@ public class UniLibrary extends AbstractLibrary{
     public void findBook(String name) {
         System.out.println("Looking for book " + name + " from Uni library.");
     }
+
+    @Override
+    void getSilience() {
+        System.out.println("- you hear nothing -");
+    }
+
+    @Override
+    void findDocument(String name) {
+        System.out.println("Looking for info about " + name);
+    }
 }

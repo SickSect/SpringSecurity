@@ -1,7 +1,9 @@
 package com.example.aop.pointcut;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,10 +21,16 @@ public class LogAspect {
         System.out.println("beforeReturnBookAdvice getBook");
     }
 
-    @Before("execution( public void find*(String))") // args works like this
+    @Pointcut("execution( public void find*(String))") // args works like this
     public void beforeFindBookAdvice(){
         System.out.println("beforeFindBookAdvice getBook");
     }*/
+
+    @Pointcut("execution(public void get*(*))")
+    public void allGetMethods(){}
+
+    @Pointcut("execution(public void *(*))")
+    public void methodAdvice(JoinPoint joinPoint){}
 
     @Before ("execution( public void get*(String))")
     public void beforeGetLoggingAdvice(){
@@ -32,6 +40,16 @@ public class LogAspect {
     @Before ("execution(public void find*(String)) || execution(public void return*(String))")
     public void beforeGetSecurityAdvice(){
         System.out.println("Security advice");
+    }
+
+    @Before("allGetMethods()")
+    public void beforeAllGetMethods(){
+        System.out.println("Using get methods");
+    }
+
+    @Before("com.example.aop.pointcut.LogAspect.methodAdvice(Object)")
+    public void allMethods(JoinPoint joinPoint){
+        System.out.println("allMethods activated. " + joinPoint.getSignature());
 
     }
     /*The same pointcuts could be signed as

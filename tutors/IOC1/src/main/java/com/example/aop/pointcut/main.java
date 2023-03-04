@@ -5,13 +5,21 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class main {
     public static void main(String[]args){
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConfigApp.class);
-        UniLibrary libre = context.getBean("uni", UniLibrary.class);
+       /* UniLibrary libre = context.getBean("uni", UniLibrary.class);
         libre.getBook("Programming");
         SchoolLibrary libre_a = context.getBean("school", SchoolLibrary.class);
         libre_a.getBook("Zoology");
         libre.findBook("Zoology");
         libre.returnBook("Zoology");
-        libre_a.returnBook( "Programming");
+        libre_a.returnBook( "Programming");*/
+        UniLibrary libre = context.getBean("uni", UniLibrary.class);
+        SchoolLibrary libre_a = context.getBean("school", SchoolLibrary.class);
+        libre.getSilience();
+        libre.getBook("Picnic on the ned of the road");
+        libre_a.getBook("Alpinist");
+        libre.returnBook("Picnic on the end of the road");
+        libre_a.returnBook("Alpinist");
+        libre.getSilience();
         context.close();
     }
 }
