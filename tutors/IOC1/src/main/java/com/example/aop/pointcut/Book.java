@@ -8,9 +8,21 @@ import org.springframework.stereotype.Component;
 public class Book {
     private String name;
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                '}';
+    }
+
     public Book() {
-        name = "Picnic on the end of the road";
+        name = "Picnic by the edge of the road";
         author = "Strugatski brothers";
+    }
+    public Book(String name, String author) {
+        name = name;
+        author = author;
     }
 
     private String author;

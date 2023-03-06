@@ -1,9 +1,11 @@
 package com.example.aop.pointcut;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,7 +32,7 @@ public class LogAspect {
     public void allGetMethods(){}
 
     @Pointcut("execution(public void *(*))")
-    public void methodAdvice(JoinPoint joinPoint){}
+    public void methodAdvice(){}
 
     @Before ("execution( public void get*(String))")
     public void beforeGetLoggingAdvice(){
@@ -47,10 +49,16 @@ public class LogAspect {
         System.out.println("Using get methods");
     }
 
-    @Before("com.example.aop.pointcut.LogAspect.methodAdvice(Object)")
+    @Before("methodAdvice()")
     public void allMethods(JoinPoint joinPoint){
-        System.out.println("allMethods activated. " + joinPoint.getSignature());
-
+        MethodSignature sign = (MethodSignature) joinPoint.getSignature();
+        System.out.println("    LOG: " + sign.getMethod() + "\n" +  "RETURN TYPE: " + sign.getReturnType());
+        // also throug the Object[] args we can get all arguments id they be
+    }
+    @AfterReturning("execution(public Book return*(String, String))")
+    public void returningAdvice(JoinPoint joinPoint){
+        MethodSignature sign = (MethodSignature) joinPoint.getSignature();
+        System.out.println("RETURNING ADVICE ->  LOG: " + sign.getMethod() + "\n" +  "RETURN TYPE: " + sign.getReturnType());
     }
     /*The same pointcuts could be signed as
     * @Pointcut("execution(prototype)")

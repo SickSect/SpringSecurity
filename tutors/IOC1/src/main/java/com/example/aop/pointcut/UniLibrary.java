@@ -11,8 +11,9 @@ public class UniLibrary extends AbstractLibrary{
     }
 
     @Override
-    public void returnBook(String name) {
+    public Book returnBook(String name,String author) {
         System.out.println("Return book " + name + " from Uni library.");
+        return new Book(name, author);
     }
 
     @Override
@@ -21,7 +22,7 @@ public class UniLibrary extends AbstractLibrary{
     }
 
     @Override
-    void getSilience() {
+    void getSilence() {
         System.out.println("- you hear nothing -");
     }
 

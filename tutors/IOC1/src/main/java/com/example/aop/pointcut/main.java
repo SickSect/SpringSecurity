@@ -14,12 +14,12 @@ public class main {
         libre_a.returnBook( "Programming");*/
         UniLibrary libre = context.getBean("uni", UniLibrary.class);
         SchoolLibrary libre_a = context.getBean("school", SchoolLibrary.class);
-        libre.getSilience();
+        libre.getSilence();
         libre.getBook("Picnic on the ned of the road");
         libre_a.getBook("Alpinist");
-        libre.returnBook("Picnic on the end of the road");
-        libre_a.returnBook("Alpinist");
-        libre.getSilience();
+        libre.returnBook("Picnic on the end of the road", "Boris and Arcadiy Strugatsky");
+        libre_a.returnBook("Alpinist", "B.Akunin");
+        libre.getSilence();
         context.close();
     }
 }

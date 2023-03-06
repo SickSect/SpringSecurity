@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--This is how we could get bean from xml file
+We have class and for took bean - we took it trough here
+call it by ID -->
+    <!--1-->
+    <bean id = "PetCat"
+          class = "com.example.ioc1.entity.Cat">
+    </bean>
+    <!--Bean is object that creates and controls by Spring Container-->
+    <bean id = "PetDog"
+          class="com.example.ioc1.entity.Dog"></bean>
+
+
+    <!--2-->
+    <bean id = "owner"
+          class = "com.example.ioc1.step1.Owner">
+        <constructor-arg ref="item"></constructor-arg> <!--ref is reference to bean item-->
+    </bean>
+    <bean id = "item"
+          class = "com.example.ioc1.step1.Item">
+        <constructor-arg value="ITEM"/>
+    </bean>
+
+    <!--3-->
+    <bean id = "book"
+          class="com.example.ioc1.step2.Book">
+        <constructor-arg value="ONEGIN"/>
+    </bean>
+    <bean id = "student"
+          class = "com.example.ioc1.step2.Student">
+        <property name="book" ref="book"></property>
+         <!--name should be like this bc it search for setter with name book like setBook-->
+    </bean>
+
+
+    <!--4-->
+    <context:property-placeholder location="step3.properties"></context:property-placeholder>
+    <bean id="pencil"
+        class = "com.example.ioc1.step3.Pencil">
+        <property name="firm" value="${pencil.firm}"></property>
+    </bean>
+
+    <bean id = "author"
+          class="com.example.ioc1.step3.Author">
+        <property name="name" value="${author.name}"/>
+        <property name="pencil" ref="pencil"></property>
+    </bean>
+    <!--BeanScope-->
+    <bean id = "key"
+          class="com.example.ioc1.BeanScope.Key">
+        <property name="name" value="Old"></property>
+    </bean>
+    <bean id = "door"
+          class="com.example.ioc1.BeanScope.Door">
+    <!--scope="singleton"--></bean>
+</beans>
