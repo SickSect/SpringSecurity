@@ -1,9 +1,6 @@
 package com.example.hibernate.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Employee {
@@ -13,6 +10,9 @@ public class Employee {
     private String name;
     private String Surname;
     private String mail;
+    @OneToOne (cascade = CascadeType.ALL)
+    @JoinColumn()
+    private EmployeeRank rank;
 
     public Employee(String name, String surname, String mail) {
         this.name = name;
@@ -22,5 +22,29 @@ public class Employee {
 
     public Employee() {
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return Surname;
+    }
+
+    public void setSurname(String surname) {
+        Surname = surname;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }
