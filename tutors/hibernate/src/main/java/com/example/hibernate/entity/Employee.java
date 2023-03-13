@@ -10,8 +10,8 @@ public class Employee {
     private String name;
     private String Surname;
     private String mail;
-    @OneToOne (cascade = CascadeType.ALL)
-    @JoinColumn()
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
     private EmployeeRank rank;
 
     public Employee(String name, String surname, String mail) {

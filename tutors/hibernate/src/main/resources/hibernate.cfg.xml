@@ -6,7 +6,7 @@
     <session-factory>
         <property name="connection.url">jdbc:postgresql://localhost:5432/hibernate_course?useSSL=false&amp;serverTimezone=UTC</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.username">sickeer</property>
+        <property name="connection.username">mainuser</property>
         <property name="connection.password">21062007</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="current_session_context_class">thread</property>
